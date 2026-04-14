@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Succession Diagnostic — an adapt. offer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --burgundy: #470D33;
+    --burgundy-soft: rgba(71,13,51,0.78);
+    --burgundy-mute: rgba(71,13,51,0.55);
+    --clementine: #F1634C;
+    --clementine-15: #FDEBE4;
+    --clementine-08: #FEF5F1;
+    --peach-wash: #FBECE5;
+    --cream: #FFF9F6;
+    --body-ink: #3a0a28;
+    --rule: rgba(71,13,51,0.10);
+  }
+
+  html, body { background: #fff; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--body-ink);
+    width: 210mm;
+    margin: 0 auto;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media print {
+    body { width: 210mm; margin:0; }
+    @page { size: A4 portrait; margin:0; }
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* decorative wash — sits behind EVERYTHING */
+  .page-ornament {
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: var(--clementine-08);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════ ADAPT HERO BAND ═══════════════════════ */
+  .brand-band {
+    padding: 30px 48px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .brand-spacer { position: relative; }
+
+  .adapt-logo {
+    height: 84px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .partner-lockup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .partner-lockup .label {
+    font-size: 9px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: var(--burgundy-mute);
+    font-weight: 500;
+  }
+  .partner-lockup img {
+    height: 42px;
+    width: auto;
+    display: block;
+  }
+
+  .brand-rule {
+    height: 1px;
+    background: var(--rule);
+    margin: 0 48px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 48px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .eyebrow-strip .tag {
+    font-size: 10px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    font-weight: 500;
+  }
+  .eyebrow-strip .tag .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--clementine);
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .eyebrow-strip .succession {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--burgundy-soft);
+  }
+
+  /* ═══════════════════════ HERO ═══════════════════════ */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 34px;
+    padding: 22px 48px 34px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-left { position: relative; }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 62px;
+    line-height: 0.98;
+    color: var(--burgundy);
+    letter-spacing: -0.5px;
+    margin-bottom: 22px;
+    position: relative;
+  }
+  .hero h1::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 18px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--clementine);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--clementine);
+    font-weight: 500;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--burgundy-soft);
+    max-width: 430px;
+    margin-bottom: 22px;
+  }
+  .hero-sub strong { color: var(--burgundy); font-weight: 500; }
+
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-tag {
+    font-size: 11px;
+    color: var(--burgundy);
+    padding: 6px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    background: #fff;
+    letter-spacing: 0.2px;
+  }
+  .hero-tag.primary {
+    background: var(--clementine);
+    color: #fff;
+    border-color: var(--clementine);
+    font-weight: 500;
+  }
+
+  .hero-right {
+    position: relative;
+    height: 340px;
+  }
+  .hero-circle {
+    position: absolute;
+    top: 0; right: 0;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--peach-wash);
+  }
+  .hero-circle img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 30% center;
+  }
+  .hero-dot-sm {
+    position: absolute;
+    left: -6px; top: 44%;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--clementine);
+  }
+  .hero-dot-lg {
+    position: absolute;
+    right: -24px; bottom: 10px;
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: var(--burgundy);
+    opacity: 0.9;
+  }
+
+  /* ═══════════════════════ EXPLORE ═══════════════════════ */
+  .explore {
+    padding: 0 48px 26px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .explore-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--burgundy);
+    line-height: 1.35;
+    max-width: 560px;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+  }
+
+  .col {
+    padding: 22px 22px 24px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .col.peach { background: var(--clementine-08); border-color: transparent; }
+  .col.cream { background: var(--cream); border-color: transparent; }
+
+  .col-num {
+    display: inline-flex; align-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--clementine);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .col-num::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--clementine);
+    margin-right: 8px;
+  }
+
+  .col h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--burgundy);
+    line-height: 1.1;
+    margin-bottom: 14px;
+    letter-spacing: -0.2px;
+  }
+
+  .col p {
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--body-ink);
+    margin-bottom: 10px;
+  }
+  .col p:last-child { margin-bottom: 0; }
+  .col p strong { color: var(--burgundy); font-weight: 500; }
+
+  /* ═══════════════════════ OUTCOME ═══════════════════════ */
+  .outcome {
+    margin: 0 48px 22px;
+    padding: 26px 32px;
+    background: linear-gradient(120deg, var(--peach-wash) 0%, var(--clementine-15) 100%);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 22px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+  .outcome::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(241,99,76,0.12);
+  }
+  .outcome-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--burgundy);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--clementine);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+  }
+  .outcome-text { position: relative; z-index: 2; }
+  .outcome-text .eyebrow {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--clementine); font-weight: 600; margin-bottom: 6px;
+  }
+  .outcome-text p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--burgundy);
+    font-weight: 500;
+  }
+  .outcome-text p em { font-style: italic; }
+
+  /* ═══════════════════════ CTA ═══════════════════════ */
+  .cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 48px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-text h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--burgundy);
+    font-weight: 600;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .cta-text p {
+    font-size: 12px;
+    color: var(--burgundy-soft);
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--burgundy);
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+  }
+  .cta-button .arrow {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--clementine);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #fff;
+  }
+
+  /* ═══════════════════════ FOOTER ═══════════════════════ */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0 20px;
+    border-top: 1px solid var(--rule);
+    margin: 0 48px;
+    position: relative;
+    z-index: 2;
+  }
+  .footer-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--burgundy);
+  }
+  .footer-tag::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--clementine);
+    margin-right: 8px;
+    vertical-align: middle;
+    margin-bottom: 2px;
+  }
+  .footer-url {
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: var(--burgundy-soft);
+    font-weight: 500;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- decorative wash — behind everything -->
+  <div class="page-ornament"></div>
+
+  <!-- ═══════ ADAPT HERO BAND ═══════ -->
+  <div class="brand-band">
+    <div class="brand-spacer"></div>
+    <img class="adapt-logo" src="Adapt_RGB_Vertical_Clementine.svg" alt="adapt.">
+    <div class="partner-lockup">
+      <div class="label">In partnership with</div>
+      <img src="IMAA_TMR_Logo_One-500x220.jpg" alt="The Marketing Room">
+    </div>
+  </div>
+
+  <div class="brand-rule"></div>
+
+  <div class="eyebrow-strip">
+    <div class="tag"><span class="dot"></span>A complimentary offer for tmr customers</div>
+    <div class="succession">Succession Thinking<sup>™</sup></div>
+  </div>
+
+  <!-- ═══════ HERO ═══════ -->
+  <div class="hero">
+    <div class="hero-left">
+      <h1>Succession<br><em>Diagnostic</em></h1>
+      <p class="hero-sub">
+        Is your business set up for <strong>scale, sale or succession?</strong> In just 60 minutes, we'll help you answer that question — with clarity you can act on today.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag primary">Complimentary</span>
+        <span class="hero-tag">60-minute workshop</span>
+        <span class="hero-tag">1:1 with an adapt coach</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-circle">
+        <img src="NZ9_4446.jpg" alt="An adapt coaching session in action">
+      </div>
+      <div class="hero-dot-sm"></div>
+      <div class="hero-dot-lg"></div>
+    </div>
+  </div>
+
+  <!-- ═══════ EXPLORE ═══════ -->
+  <div class="explore">
+    <p class="explore-intro">
+      Together, we'll explore three dimensions of your business — uncovering where you are, what's holding you back, and what's possible.
+    </p>
+
+    <div class="cols">
+
+      <div class="col">
+        <div class="col-num">01 · NOW</div>
+        <h3>Your current state</h3>
+        <p>How are you really feeling? <strong>Stuck, overwhelmed, lonely, frustrated</strong> — or all of the above?</p>
+        <p>What does your daily demand look like across the business? Are you wearing too many hats?</p>
+      </div>
+
+      <div class="col peach">
+        <div class="col-num">02 · REAL</div>
+        <h3>Your business</h3>
+        <p><strong>Ownership structure</strong> — who's responsible for the vision?</p>
+        <p><strong>Team, functions &amp; roles</strong> — where are the key-person risks?</p>
+        <p><strong>Performance</strong> across leadership, strategy, people, culture and systems.</p>
+      </div>
+
+      <div class="col cream">
+        <div class="col-num">03 · NEXT</div>
+        <h3>Your ideal future</h3>
+        <p>What do you actually want? <strong>Is your business on track</strong> to deliver it?</p>
+        <p>Do you have clarity of vision — and does it connect to your personal aspirations?</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ OUTCOME ═══════ -->
+  <div class="outcome">
+    <div class="outcome-icon">→</div>
+    <div class="outcome-text">
+      <div class="eyebrow">What you walk away with</div>
+      <p>
+        Clarity on the challenges and opportunities in front of you — mapped against <em>Succession Thinking™</em> — plus tangible takeaways to implement in your business today.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════ CTA ═══════ -->
+  <div class="cta">
+    <div class="cta-text">
+      <h4>Ready to get clarity?</h4>
+      <p>Book your complimentary 60-minute session — it could change everything.</p>
+    </div>
+    <a href="mailto:connect@theadaptway.com" class="cta-button">
+      connect@theadaptway.com
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <div class="footer">
+    <div class="footer-tag">Changing (business) lives for good<span style="color: var(--clementine); margin-left:2px;">.</span></div>
+    <div class="footer-url">theadaptway.com</div>
+  </div>
+
+</div>
+
+</body>
+</html>
